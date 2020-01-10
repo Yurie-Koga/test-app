@@ -49,4 +49,18 @@ app.delete("/api/v1/item/:id", (req, res) => {
   res.sendStatus(200); // OK
 });
 
+app.put("/api/v1/item/:id", (req, res) => {
+  const index = todoList.findIndex(item => item.id === req.params.id);
+
+  if (index >= 0) {
+    const item = todoList[index];
+    if (req.body.done) {
+      item.done = req.body.done === "true";
+    }
+    console.log("Edit: " + JSON.stringify(item));
+  }
+
+  res.sendStatus(200); // OK
+});
+
 app.listen(3000, () => console.log("Listening on port 3000"));

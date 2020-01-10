@@ -14,6 +14,17 @@
     </div>
 
     <script>
+      function checkboxListener(event) {
+        const checkbox = event.currentTarget;
+        const id = checkbox.dataset.id;
+        const body = new FormData();
+        body.append("done", checkbox.checked.toString());
+
+        fetch(`./api/v1/item/${id}`, { method: "PUT", body }).then(() =>
+          fetchTodoList()
+        );
+      }
+
       function deleteButtonListener(event) {
         const button = event.currentTarget;
         const id = button.dataset.id;
@@ -37,10 +48,13 @@
         for (const item of todoList) {
           const li = document.createElement("li");
           const label = document.createElement("label");
+          const text = new Text(item.title);
+
           const checkbox = document.createElement("input");
           checkbox.type = "checkbox";
           checkbox.checked = item.done;
-          const text = new Text(item.title);
+          checkbox.dataset.id = item.id;
+          checkbox.addEventListener("change", checkboxListener);
 
           const deleteButton = document.createElement("button");
           deleteButton.innerText = "Delete";
