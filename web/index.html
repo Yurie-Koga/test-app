@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+
+    <title>Todo List</title>
+  </head>
+  <body>
+    <h1>Todo List</h1>
+    <div>
+      <ul id="todo-container"></ul>
+    </div>
+
+    <script>
+      fetch("./api/v1/list")
+        .then(response => response.json())
+        .then(todoList => {
+          const todoContainer = document.querySelector("#todo-container");
+          todoContainer.innerHTML = "";
+
+          for (const item of todoList) {
+            const li = document.createElement("li");
+            const label = document.createElement("label");
+            const checkbox = document.createElement("input");
+            checkbox.type = "checkbox";
+            checkbox.checked = item.done;
+            const text = new Text(item.title);
+
+            label.appendChild(checkbox);
+            label.appendChild(text);
+            li.appendChild(label);
+            todoContainer.appendChild(li);
+          }
+        });
+    </script>
+  </body>
+</html>
