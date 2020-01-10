@@ -38,4 +38,15 @@ app.post("/api/v1/add", (req, res) => {
   res.json(todoItem);
 });
 
+app.delete("/api/v1/item/:id", (req, res) => {
+  const index = todoList.findIndex(item => item.id === req.params.id);
+
+  if (index >= 0) {
+    const deleted = todoList.splice(index, 1);
+    console.log("Delete: " + JSON.stringify(deleted[0]));
+  }
+
+  res.sendStatus(200); // OK
+});
+
 app.listen(3000, () => console.log("Listening on port 3000"));
