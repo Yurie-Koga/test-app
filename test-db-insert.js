@@ -8,6 +8,8 @@ let dbInsert = new sqlite.Database("./db/sample.db", err => {
 
 // Insert and Select
 // DB.run: use "function(err) {}" instead of "err => {}" (this key word didn't work)
+//  => "this.lastID", "this.changes" should be returned after SQL is run.
+//      Arrow function will buind before SQL run, so it will be undefined.
 dbInsert.serialize(() => {
   // Insert single row
   // VALUES(?)`, ["Java"], = VALUES('Java')`
