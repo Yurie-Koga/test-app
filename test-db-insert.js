@@ -7,7 +7,7 @@ let dbInsert = new sqlite.Database("./db/sample.db", err => {
 });
 
 // Insert and Select
-// use "function(err) {}" instead of "err => {}" (this key word didn't work)
+// DB.run: use "function(err) {}" instead of "err => {}" (this key word didn't work)
 dbInsert.serialize(() => {
   // Insert single row
   // VALUES(?)`, ["Java"], = VALUES('Java')`
@@ -31,7 +31,7 @@ dbInsert.serialize(() => {
   // Select
   dbInsert.each(`SELECT name FROM langs`, (err, row) => {
     if (err) throw err;
-    else console.log("Greetings: " + row.name);
+    else console.log("Languages: " + row.name);
   });
 });
 
