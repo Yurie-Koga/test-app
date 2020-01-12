@@ -1,6 +1,5 @@
 // ========== Note ==========
 // Not completed file to check transaction.
-// Using co and promise.
 // co doen't work to control serialized process.
 // ========== Note ==========
 const sqlite = require("sqlite3").verbose();
