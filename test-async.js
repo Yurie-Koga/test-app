@@ -1,5 +1,5 @@
 // ========== Note ==========
-// Not completed file to check transaction.
+// Not completed file to check async.
 // Using co and promise.
 // co doen't work to control serialized process.
 // ========== Note ==========
