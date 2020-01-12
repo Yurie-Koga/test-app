@@ -23,7 +23,7 @@ db.run("DELETE FROM testTbl", err => {
 // Insert
 db.serialize(() => {
   // Start trans
-  db.exec("BEGIN TRANSACTION");
+  db.run("BEGIN TRANSACTION");
 
   // Create table
   db.run("CREATE TABLE IF NOT EXISTS testTbl(comment text)", err => {
@@ -49,20 +49,12 @@ db.serialize(() => {
   db.run(`INSERT INTO testTbl(comment) VALUES(?)`, ["After Rollback"], function(
     err
   ) {
-    // Cause error
-    execFlg = false;
-
-    if (err) console.error("*** DB ERROR (db): " + err.message);
-    else console.log(`Inserted multi rows: ${this.changes}`);
-  })
-    .each(`SELECT comment FROM testTbl`, (err, row) => {
-      if (err) throw err;
-      else console.log("Second insert: " + row.comment);
-    })
-    .then(response => {
-      if (execFlg) db.exec("COMMIT");
-      else db.exec("ROLLBACK");
-    });
+    // Rollback
+    // db.run("ROLLBACK");
+  }).each(`SELECT comment FROM testTbl`, (err, row) => {
+    if (err) throw err;
+    else console.log("Second insert: " + row.comment);
+  });
 });
 
 // Get result
